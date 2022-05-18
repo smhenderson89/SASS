@@ -1,0 +1,21 @@
+@import './resets';
+@import './variables';
+
+body {
+    background: $background;
+    color: $text-color;
+}
+
+.main {
+    width: 80%;
+    margin: 0 auto;
+
+    // Nested CSS, & = the parent class
+    #{&}_paragraph  {
+        font-weight: map-get($font-weights, bold);
+
+        &:hover {
+            color: pink;
+        }
+    }
+}
