@@ -1,18 +1,26 @@
 @import './resets';
 @import './variables';
 
+// Function, use map to get the font weight based on name
+@function weights($weight-name) {
+    @return map-get($font-weights, $weight-name) ;
+}
+
 body {
     background: $background;
     color: $text-color;
 }
 
 .main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 80%;
     margin: 0 auto;
 
     // Nested CSS, & = the parent class
     #{&}_paragraph  {
-        font-weight: map-get($font-weights, bold);
+        font-weight: weight(bold);
 
         &:hover {
             color: pink;
