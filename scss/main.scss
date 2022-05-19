@@ -1,9 +1,36 @@
+// Documentation: https://sass-lang.com/documentation
+
+// Partials to break up the SCSS to make the file management much easier
 @import './resets';
 @import './variables';
 
 // Function, use map to get the font weight based on name
+// Functions used to compute values/return values
 @function weights($weight-name) {
     @return map-get($font-weights, $weight-name) ;
+}
+
+// Mixin Exmaple
+// Mixin used to define styles
+@mixin flexCenter($direction) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: $direction;
+}
+
+@mixin theme($dark-theme: true) {
+    @if $dark-theme {
+        background: darken($primary-color, 100%);
+        color: lighten($text-color, 100%)
+    }
+}
+
+@mixin mobile {
+    @media (max-width: $mobile) {
+        @content
+    }
+    
 }
 
 body {
@@ -12,18 +39,37 @@ body {
 }
 
 .main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    // Use MixIn as part of the base class
+    @include flexCenter(row);
     width: 80%;
     margin: 0 auto;
 
     // Nested CSS, & = the parent class
-    #{&}_paragraph  {
+    #{&}_paragraph1  {
         font-weight: weight(bold);
 
         &:hover {
             color: pink;
         }
     }
+
+    // Extending a class and modify it
+    #{&}_paragraph2 {
+        @extend .main_paragraph1;
+
+        &:hover {
+            color: $accent-color;
+        }
+    }
+
+    // Media query example
+    @include mobile {
+        flex-direction: column;
+    }
+
+
+}
+
+.dark {
+    @include theme($dark-theme: true) 
 }
